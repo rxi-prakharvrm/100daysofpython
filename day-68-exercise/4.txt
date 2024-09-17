@@ -1,0 +1,53 @@
+import os
+import random
+import string
+
+alphanumeric_chars = string.ascii_letters + string.digits
+
+def generate_file_name():
+    # Generate a random file name of length between 1 and 10
+    name_len = random.randint(1, 10)
+    file_name = ''.join(random.choice(alphanumeric_chars) for _ in range(name_len))
+    return file_name + ".txt"
+
+def create_files():
+    # Create the directory if it does not exist
+    directory = "day-68-exercise"
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+
+    # Create 10 files with random names
+    for _ in range(10):
+        file_name = generate_file_name()
+        file_path = os.path.join(directory, file_name)
+
+        # Create the file inside the specified directory
+        with open(file_path, 'w') as f:
+            f.write("This is a random file.\n")
+
+# Call the function to create files
+# create_files()
+
+import os
+
+def remove_clutter():
+    # Specify the directory
+    directory = "day-68-exercise"
+    
+    # Get all files in the specified directory
+    files = os.listdir(directory)
+    
+    # Iterate through the files and rename them
+    for idx, file_name in enumerate(files, start=1):
+        # Create the full path for the current file
+        old_file_path = os.path.join(directory, file_name)
+        
+        # Create the new file name and path
+        new_file_name = f"{idx}.txt"
+        new_file_path = os.path.join(directory, new_file_name)
+        
+        # Rename the file
+        os.rename(old_file_path, new_file_path)
+
+# Call the function
+remove_clutter()
